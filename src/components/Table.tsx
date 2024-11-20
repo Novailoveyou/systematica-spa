@@ -10,9 +10,9 @@ import {
   PaginationState,
   SortingState
 } from '@tanstack/react-table';
-import { DistrictDataProps, DistrictDataItem } from '../hooks'
+import { District, DistrictsProps } from '../hooks/useDistricts'
 
-const columns: ColumnDef<DistrictDataItem>[] = [
+const columns: ColumnDef<District>[] = [
   {
     accessorKey: 'district',
     header: 'Район'
@@ -24,7 +24,7 @@ const columns: ColumnDef<DistrictDataItem>[] = [
 ];
 const pageSizes = [5, 10];
 
-const Table = ({ districtData }: DistrictDataProps) => {
+const Table = ({ districts }: DistrictsProps) => {
   const [globalFilter, setGlobalFilter] = useState('');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -33,7 +33,7 @@ const Table = ({ districtData }: DistrictDataProps) => {
   });
 
   const table = useReactTable({
-    data: districtData || [],
+    data: districts,
     columns,
     state: {
       globalFilter,

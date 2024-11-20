@@ -1,10 +1,10 @@
 import { Chart, Table } from './components';
 import './globals.css';
-import { useBicycleParkingData } from './hooks';
+import { useDistricts } from './hooks';
 import { LoadingOverlay, ErrorOverlay } from './components/overlay';
 
 function App() {
-  const { districtData, loading, error } = useBicycleParkingData();
+  const { districts, loading, error } = useDistricts();
 
   if (loading) {
     return <LoadingOverlay />;
@@ -21,10 +21,10 @@ function App() {
       </h1>
       <div className='flex flex-col-reverse md:flex-row'>
         <div className='basis-3/6'>
-          <Chart districtData={districtData || []} />
+          <Chart districts={districts} />
         </div>
         <div className='basis-5/6'>
-          <Table districtData={districtData || []} />
+          <Table districts={districts} />
         </div>
       </div>
     </main>

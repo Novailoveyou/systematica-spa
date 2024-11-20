@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react'
 import { Catalog } from './types'
 import { PARAMS, ROUTE } from './constants'
 
-const useBicycleParkingData = () => {
-  const [data, setData] = useState<{ district: string; capacity: number }[]>([])
+export type District = { district: string; capacity: number }
+export type DistrictsProps = Pick<ReturnType<typeof useDistricts>, 'districts'>
+
+const useDistricts = () => {
+  const [districts, setDistricts] = useState<District[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -19,7 +22,7 @@ const useBicycleParkingData = () => {
 
         const catalog: Catalog = await response.json()
 
-        const normalized: typeof data = Object.values(
+        const _districts: typeof districts = Object.values(
           catalog.response.reduce(
             (acc, { District: district, Capacity: capacity }) => {
               if (acc[district]) {
@@ -32,11 +35,11 @@ const useBicycleParkingData = () => {
               }
               return acc
             },
-            {} as Record<string, typeof data[number]>,
+            {} as Record<string, typeof districts[number]>,
           ),
         )
 
-        setData(normalized)
+        setDistricts(_districts)
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message)
@@ -51,10 +54,7 @@ const useBicycleParkingData = () => {
     fetchData()
   }, [])
 
-  return { districtData: data, loading, error }
+  return { districts, loading, error }
 }
 
-export type DistrictDataProps = Pick<ReturnType<typeof useBicycleParkingData>, 'districtData'>
-export type DistrictDataItem = DistrictDataProps['districtData'][number]
-
-export default useBicycleParkingData
+export default useDistricts
