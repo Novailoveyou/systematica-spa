@@ -1,1 +1,1 @@
-export { default as useBicycleParkingData } from './useBicycleParkingData.ts';
+export { default as useBicycleParkingData, type DistrictDataProps, type DistrictDataItem } from './useBicycleParkingData'

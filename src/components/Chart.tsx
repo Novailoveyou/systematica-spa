@@ -1,7 +1,9 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { DistrictCapacity } from '../types';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
+import { DistrictDataProps } from '../hooks'
+
+type PieProps = ComponentProps<typeof Pie>
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,11 +14,11 @@ const generateRGBAColor = (alpha: number) => {
   return `rgba(${R}, ${G}, ${B}, ${alpha})`;
 };
 
-const Chart = ({ districtData }: { districtData: DistrictCapacity[] }) => {
+const Chart = ({ districtData }: DistrictDataProps) => {
   const [colors] = useState(() =>
     Array.from({ length: districtData.length }, () => generateRGBAColor(0.5))
   );
-  const data = {
+  const data: PieProps['data'] = {
     labels: districtData?.map(item => item.district),
     datasets: [
       {
@@ -29,7 +31,7 @@ const Chart = ({ districtData }: { districtData: DistrictCapacity[] }) => {
     ]
   };
 
-  const options = {
+  const options: PieProps['options'] = {
     responsive: true,
     plugins: {
       legend: {
@@ -37,7 +39,7 @@ const Chart = ({ districtData }: { districtData: DistrictCapacity[] }) => {
       },
       tooltip: {
         callbacks: {
-          label: (tooltipItem: any) => {
+          label: (tooltipItem) => {
             return `${tooltipItem.label}: ${tooltipItem.raw} мест`;
           }
         }
