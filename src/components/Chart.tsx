@@ -1,7 +1,7 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { ComponentProps, useState } from 'react';
-import { DistrictsProps } from '../hooks/useDistricts'
+import { DistrictsProps } from '../types'
 
 type PieProps = ComponentProps<typeof Pie>
 

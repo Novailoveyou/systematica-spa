@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Catalog } from './types'
+import { Data } from './types'
 import { PARAMS, ROUTE } from './constants'
-
-export type District = { district: string; capacity: number }
-export type DistrictsProps = Pick<ReturnType<typeof useDistricts>, 'districts'>
+import { District } from '../../types'
 
 const useDistricts = () => {
   const [districts, setDistricts] = useState<District[]>([])
@@ -20,10 +18,10 @@ const useDistricts = () => {
         if (!response.ok)
           throw new Error(`An error occured: ${response.status}`)
 
-        const catalog: Catalog = await response.json()
+        const data: Data = await response.json()
 
         const _districts: typeof districts = Object.values(
-          catalog.response.reduce(
+          data.response.reduce(
             (acc, { District: district, Capacity: capacity }) => {
               if (acc[district]) {
                 acc[district].capacity += capacity

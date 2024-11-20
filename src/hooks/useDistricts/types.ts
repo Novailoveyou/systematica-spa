@@ -1,4 +1,4 @@
-export type Catalog = {
+export type Data = {
   /** @example {} */
   filters: unknown
   /** @example '' */

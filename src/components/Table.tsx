@@ -10,7 +10,7 @@ import {
   PaginationState,
   SortingState
 } from '@tanstack/react-table';
-import { District, DistrictsProps } from '../hooks/useDistricts'
+import { District, DistrictsProps } from '../types'
 
 const columns: ColumnDef<District>[] = [
   {
